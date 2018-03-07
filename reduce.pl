@@ -2,24 +2,19 @@
 use strict;
 use warnings;
 
-sub min ($$) { $_[$_[0] > $_[1]] }
-
-my %counts;
+my $current_key = undef;
+my $current_value = 0;
 
 while (<STDIN>) {
     next unless /(\w+)\s(\d+)/;
     my $key = $1;
     my $value = $2;
-    if ($counts{$key}) {
-        $counts{$key} += $value;
+    if ($key eq $current_key) {
+        $current_value += $value;
     } else {
-        $counts{$key} = $value;
+        print "$current_key\t$current_value\n" if defined $current_key;
+        $current_key = $key;
+        $current_value = $value;
     }
 }
 
-my @keys = (reverse sort {$counts{$a} <=> $counts{$b}} keys (%counts)); 
-
-my $max_index = min($#keys, 9);
-for my $index (0 .. $max_index) {
-    print "$keys[$index]\t$counts{$keys[$index]}\n";
-}
