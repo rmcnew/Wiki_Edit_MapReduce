@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 import java.time.Instant;
 import java.time.DayOfWeek;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -30,7 +32,7 @@ public class WeekDay {
                 long epochSeconds = Long.valueOf(timestamp);
                 Instant ts = Instant.ofEpochSecond(epochSeconds);
                 DayOfWeek day = DayOfWeek.from(ts);
-                word.set(day.getDisplayName());
+                word.set(day.getDisplayName(TextStyle.FULL_STANDALONE, Locale.ENGLISH));
                 context.write(word, one);
             } 
 		}
