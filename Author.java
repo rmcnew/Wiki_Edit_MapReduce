@@ -10,7 +10,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class Article {
+public class Author {
 
 	public static class RegexMapper extends Mapper<Object, Text, Text, IntWritable>{
 
@@ -25,7 +25,7 @@ public class Article {
                 String article = fields[1];
                 String edit = fields[2];
                 String timestamp = fields[3];	
-                word.set(article);
+                word.set(user);
                 context.write(word, one);
             } 
 		}
@@ -46,7 +46,7 @@ public class Article {
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		Job job = Job.getInstance(conf, "article count");
+		Job job = Job.getInstance(conf, "author count");
 		job.setJarByClass(Article.class);
 		job.setMapperClass(RegexMapper.class);
 		job.setCombinerClass(IntSumReducer.class);

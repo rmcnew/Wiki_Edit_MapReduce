@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.util.StringTokenizer;
+import java.time.Instant;
+import java.time.DayOfWeek;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -10,7 +12,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class Article {
+public class DayOfWeek {
 
 	public static class RegexMapper extends Mapper<Object, Text, Text, IntWritable>{
 
@@ -25,7 +27,10 @@ public class Article {
                 String article = fields[1];
                 String edit = fields[2];
                 String timestamp = fields[3];	
-                word.set(article);
+                long epochSeconds = Long.valueOf(timestamp);
+                Instant ts = Instant.ofEpochSecond(epochSeconds);
+                DayOfWeek day = DayOfWeek.from(ts);
+                word.set(day.getDisplayName());
                 context.write(word, one);
             } 
 		}
@@ -46,7 +51,7 @@ public class Article {
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		Job job = Job.getInstance(conf, "article count");
+		Job job = Job.getInstance(conf, "day of week count");
 		job.setJarByClass(Article.class);
 		job.setMapperClass(RegexMapper.class);
 		job.setCombinerClass(IntSumReducer.class);
