@@ -20,10 +20,10 @@ public class Article {
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			String valueStr = value.toString();
 			String[] fields = valueStr.split("\\s");
-			String user = String[0];
-			String article = String[1];
-			String edit = String[2];
-			String timestamp = String[3];	
+			String user = fields[0];
+			String article = fields[1];
+			String edit = fields[2];
+			String timestamp = fields[3];	
 			word.set(article);
 			context.write(word, one);
 		}
