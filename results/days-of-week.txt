@@ -1,0 +1,7 @@
+Tuesday	39296232
+Wednesday	39253635
+Monday	39092624
+Thursday	38649910
+Friday	37664467
+Sunday	37170640
+Saturday	35642105
