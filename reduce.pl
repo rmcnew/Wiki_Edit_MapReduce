@@ -17,4 +17,4 @@ while (<STDIN>) {
         $current_value = $value;
     }
 }
-
+print "$current_key\t$current_value\n" if defined $current_key;
