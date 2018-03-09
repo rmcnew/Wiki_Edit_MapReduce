@@ -47,7 +47,7 @@ public class Author {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 		Job job = Job.getInstance(conf, "author count");
-		job.setJarByClass(Article.class);
+		job.setJarByClass(Author.class);
 		job.setMapperClass(RegexMapper.class);
 		job.setCombinerClass(IntSumReducer.class);
 		job.setReducerClass(IntSumReducer.class);

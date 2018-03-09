@@ -12,7 +12,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class DayOfWeek {
+public class WeekDay {
 
 	public static class RegexMapper extends Mapper<Object, Text, Text, IntWritable>{
 
@@ -52,7 +52,7 @@ public class DayOfWeek {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 		Job job = Job.getInstance(conf, "day of week count");
-		job.setJarByClass(Article.class);
+		job.setJarByClass(WeekDay.class);
 		job.setMapperClass(RegexMapper.class);
 		job.setCombinerClass(IntSumReducer.class);
 		job.setReducerClass(IntSumReducer.class);
